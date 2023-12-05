@@ -22,7 +22,7 @@ class TypeRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => 'required|min:2|max:30',
+            'name' => 'required|min:2|max:30|numeric',
             'description' => 'max:100',
         ];
     }
@@ -33,6 +33,7 @@ class TypeRequest extends FormRequest
             'name.required' => 'Devi inserire un nome per poter creare un nuovo Tipo',
             'name.min' => 'Il nome del nuovo Tipo deve avere almeno :min caratteri',
             'name.max' => 'Il nome del nuovo Tipo può avere al massimo :max caratteri',
+            'name.numeric' => 'deve essere un numero (test)',
 
             'description.max' => 'La descrizione può avere al massimo :max caratteri'
         ];

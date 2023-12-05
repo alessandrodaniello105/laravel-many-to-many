@@ -69,37 +69,62 @@
                 {{-- Card creazione --}}
                 <div class="card">
                     <div class="card-body">
-
                         <h3>Crea un nuovo tipo</h3>
+
 
                         <form action="{{ route('admin.types.store') }}" method="POST">
                             @csrf
 
-                            <div class="input-group mb-3">
+                            <div class="input-group">
 
                                 <input
                                   type="text"
-                                  class="form-control @if($errors->any()) is-invalid @endif"
+                                  class="form-control @error('name') is-invalid @enderror"
                                   placeholder="Nome nuovo tipo"
                                   id="new-type-input"
                                   name="name"
 
-                                  >
+                                >
 
-                                <button type="submit" class="btn btn-warning">Invia</button>
+
+                                <button type="submit" class="btn btn-warning rounded-end">Invia</button>
 
                                 @error('name')
                                 <ul>
-                                    @dump($errors->all())
-                                    @foreach ($errors->all() as $error)
-                                        <li>{{ $error }}</li>
+
+                                    @foreach ($errors->get('name') as $message)
+
+                                    <li class="text-danger-ctm">{{ $message }}</li>
                                     @endforeach
+
                                 </ul>
                                 @enderror
+
                             </div>
 
 
+
+                            <div class="form-floating my-2 d-block">
+                                <textarea
+                                class="form-control @error('description') is-invalid @enderror"
+                                id="description"
+                                name="description"
+                                style="height: 100px"
+                                placeholder="Descrizione del progetto"
+                                >{{old('description')}}</textarea>
+
+                                <label for="description">Descrizione del progetto</label>
+
+                                @error('description')
+                                    <ul class="text-danger mt-1">
+                                        <li class="text-danger-ctm">{{ $message }}</li>
+                                    </ul>
+                                @enderror
+
+                            </div>
+
                         </form>
+
 
                     </div>
 
