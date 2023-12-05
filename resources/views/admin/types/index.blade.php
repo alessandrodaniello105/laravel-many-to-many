@@ -4,13 +4,23 @@
 
     <h1>Lista Tipi</h1>
 
-    @if (session('success'))
-        <div class="alert alert-primary" role="alert">
-            {{session('success')}}
-        </div>
-    @endif
-
     <div class="container my-3">
+        @if ($errors->any())
+            <div class="alert alert-danger">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
+
+        @if (session('success'))
+            <div class="alert alert-primary" role="alert">
+                {{session('success')}}
+            </div>
+        @endif
+
         <div class="row">
 
             {{-- Lista tipi + numero progetti --}}
@@ -67,10 +77,25 @@
 
                             <div class="input-group mb-3">
 
-                                <input type="text" class="form-control" placeholder="Nome nuovo tipo" id="new-type-input" name="name">
+                                <input
+                                  type="text"
+                                  class="form-control @if($errors->any()) is-invalid @endif"
+                                  placeholder="Nome nuovo tipo"
+                                  id="new-type-input"
+                                  name="name"
+
+                                  >
 
                                 <button type="submit" class="btn btn-warning">Invia</button>
 
+                                @error('name')
+                                <ul>
+                                    @dump($errors->all())
+                                    @foreach ($errors->all() as $error)
+                                        <li>{{ $error }}</li>
+                                    @endforeach
+                                </ul>
+                                @enderror
                             </div>
 
 

@@ -27,37 +27,38 @@ header {
         position:relative;
         width: 341px;
         height: 420px;
-    }
-    .card {
-        height: 400px;
-        margin: 10px 0;
-        overflow: auto;
-        .img-box {
-            position: relative;
-            background-color: rgba($color: #000000, $alpha: .8);
-            box-shadow: 0 0 10px #000000;
-            overflow-x: auto;
-            img {
-                object-fit: contain;
-                height: 190px;
+        .card {
+            height: 400px;
+            margin: 10px 0;
+            overflow: auto;
+            .img-box {
+                position: relative;
+                background-color: rgba($color: #000000, $alpha: .8);
+                box-shadow: 0 0 10px #000000;
+                overflow-x: auto;
+                img {
+                    object-fit: contain;
+                    height: 190px;
+                }
+                span.badge {
+                    position: absolute;
+                    bottom: 5px;
+                    right: 5px;
+                    box-shadow: 0 0 5px #000000;
+                }
             }
-            span.badge {
-                position: absolute;
-                bottom: 5px;
-                right: 5px;
-                box-shadow: 0 0 5px #000000;
-            }
-        }
-        .card-body {
-            .card-text{
-                text-overflow: ellipsis;
-                white-space: nowrap;
-                overflow: hidden;
-                width: 185px;
-            }
+            .card-body {
+                .card-text{
+                    text-overflow: ellipsis;
+                    white-space: nowrap;
+                    overflow: hidden;
+                    width: 185px;
+                }
 
+            }
         }
     }
+
 }
 
 aside {
@@ -96,4 +97,9 @@ aside {
 
 .btn-colored:hover {
     background-color: #ae8500d5;
+}
+
+.text-danger-ctm {
+    color: red;
+    font-size: .8rem;
 }

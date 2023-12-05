@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Type;
 use App\Functions\Helper;
+use App\Http\Requests\TypeRequest;
 
 class TypeController extends Controller
 {
@@ -44,7 +45,7 @@ class TypeController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(TypeRequest $request)
     {
         $form_data = $request->all();
         $form_data['slug'] = Helper::generateSlug($form_data['name'], Type::class);
