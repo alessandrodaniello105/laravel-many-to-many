@@ -34,11 +34,13 @@
                                     <td>{{$type->name}}</td>
                                     <td class="text-center">{{count($type->typeProjects)}}</td>
                                     <td>
-                                        <a class="btn btn-warning" href="{{route('admin.types.edit', $type)}}">
+
+                                        <button id="edit-btn-{{$type->id}}" class="btn btn-warning" onclick="startEdit({{$type->id}})">
                                             <i class="fa-solid fa-pencil"></i>
-                                        </a>
+                                        </button>
 
                                         @include('admin.partials.formDelete', ["route" => route('admin.types.destroy', $type)])
+
                                     </td>
                                 </tr>
                                 @endforeach
@@ -80,8 +82,9 @@
                 {{-- /Card creazione --}}
 
                 {{-- Card modifica --}}
-                @if (Route::currentRouteName() !== 'admin.types.index')
-                <div class="card my-3">
+
+                @foreach ($types as $type)
+                <div id="edit-form-{{$type->id}}" class="card my-3 edit-form-ctm d-none">
                     <div class="card-body">
 
                         <h3>Edita un tipo</h3>
@@ -92,7 +95,7 @@
 
                             <div class="input-group mb-3">
 
-                                <input type="text" class="form-control" placeholder="Nuovo nome tipo"  name="name" value="{{ $sel_type?->name}}">
+                                <input type="text" class="form-control" placeholder="Nuovo nome tipo"  name="name" value="{{$type->name}}">
 
                                 <button type="submit" class="btn btn-warning">Invia</button>
 
@@ -102,7 +105,7 @@
 
                     </div>
                 </div>
-                @endif
+                @endforeach
 
                 {{-- /Card modifica --}}
 
@@ -110,40 +113,36 @@
 
         </div>
 
-
-        {{-- <div class="mx-3 col-3 float-start">
-            <h3>Crea un nuovo tipo</h3>
-            <form action="{{ route('admin.types.store') }}" method="POST">
-                @csrf
-
-                <div class="input-group mb-3">
-
-                    <input type="text" class="form-control" placeholder="Nome nuovo tipo" id="new-type-input" name="name">
-
-                    <button type="submit" class="btn btn-warning">Invia</button>
-
-                </div>
-
-
-            </form>
-        </div> --}}
     </div>
 
-
-    {{-- <div class="container my-5">
-
+    <script>
 
 
-        <ul>
-            @foreach ($types as $type)
-            <li>
-                {{$type->name}}
-            </li>
-            @endforeach
+        // document.addEventListener('click', function(id){
+        //     const editForm = document.getElementById('edit-form-' + id);
+        //     console.log(this);
+        // })
 
-        </ul>
+        function startEdit(id) {
 
-    </div> --}}
+            editForms = document.getElementsByClassName('edit-form-ctm');
+
+            const editForm = document.getElementById('edit-form-'+id);
+
+            for(let i = 0; i < editForms.length; i++) {
+                editForms[i].classList.add('d-none');
+                console.log(editForms[i])
+            }
+
+            // const inputTest = document.getElementById
+
+            // editForm.id = 'edit-form-' + id
+            editForm.classList.remove('d-none');
+
+        }
+
+
+    </script>
 
 @endsection
 
