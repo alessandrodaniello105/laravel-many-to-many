@@ -47,7 +47,7 @@
 
                                 <ul class="dropdown-menu dropdown-menu-dark">
                                     <li><a class="dropdown-item" href="{{route('admin.projects.index')}}">Lista Progetti</a></li>
-                                    <li><a class="dropdown-item" href="{{route('admin.typeProjects')}}">Lista Progetti per Tipo</a></li>
+                                    <li><a class="dropdown-item" href="{{route('admin.projects.typeProjects')}}">Lista Progetti per Tipo</a></li>
                                     <li><a class="dropdown-item" href="{{route('admin.projects.create')}}">Nuovo progetto</a></li>
                                 </ul>
 
