@@ -69,10 +69,10 @@
                 {{-- Card creazione --}}
                 <div class="card">
                     <div class="card-body">
+
                         <h3>Crea un nuovo tipo</h3>
 
-
-                        <form action="{{ route('admin.types.store') }}" method="POST">
+                        <form id="create-form" action="{{ route('admin.types.store') }}" method="POST">
                             @csrf
 
                             <div class="input-group">
@@ -87,21 +87,19 @@
                                 >
 
 
-                                <button type="submit" class="btn btn-warning rounded-end">Invia</button>
+                                <button onclick="sendCreate()" class="btn btn-warning rounded-end">Invia</button>
 
                                 @error('name')
                                 <ul>
 
                                     @foreach ($errors->get('name') as $message)
-
-                                    <li class="text-danger-ctm">{{ $message }}</li>
+                                        <li class="text-danger-ctm">{{ $message }}</li>
                                     @endforeach
 
                                 </ul>
                                 @enderror
 
                             </div>
-
 
 
                             <div class="form-floating my-2 d-block">
@@ -111,7 +109,7 @@
                                 name="description"
                                 style="height: 100px"
                                 placeholder="Descrizione del progetto"
-                                >{{old('description')}}</textarea>
+                                >@if (Route::currentRouteName() == 'admin.types.create') {{old('description')}} @endif</textarea>
 
                                 <label for="description">Descrizione del progetto</label>
 
@@ -139,15 +137,35 @@
 
                         <h3>Edita un tipo</h3>
 
-                        <form action="{{ route('admin.types.update', $type) }}" method="POST">
+                        <form id="form-{{$type->id}}" action="{{ route('admin.types.update', $type) }}" method="POST">
                             @csrf
                             @method('PUT')
 
                             <div class="input-group mb-3">
 
+                                <input type="hidden" class="form-control" placeholder="Nuovo nome tipo"  name="name" value="{{$type->name}}">
                                 <input type="text" class="form-control" placeholder="Nuovo nome tipo"  name="name" value="{{$type->name}}">
 
-                                <button type="submit" class="btn btn-warning">Invia</button>
+                                <button onclick="sendEditForm({{$type->id}})" id="edit-form-btn-{{$type->id}}" class="btn btn-warning">Invia</button>
+
+                            </div>
+
+                            <div class="form-floating my-2 d-block">
+                                <textarea
+                                class="form-control @error('description') is-invalid @enderror"
+                                id="description"
+                                name="description"
+                                style="height: 100px"
+                                placeholder="Descrizione del progetto"
+                                >{{old('description', $type?->description)}}</textarea>
+
+                                <label for="description">Descrizione del progetto</label>
+
+                                @error('description')
+                                    <ul class="text-danger mt-1">
+                                        <li class="text-danger-ctm">{{ $message }}</li>
+                                    </ul>
+                                @enderror
 
                             </div>
 
@@ -167,6 +185,18 @@
 
     <script>
 
+        document.addEventListener(
+
+        //TODO:
+        //1. un unico form che ha 2 campi
+        // 1 è hidden (name="type_id")
+        // l'altro è text (name="name")
+        // hanno id univoci
+        // al click del bottone 'edit' tolgo il d-none al form con d-none
+        //alla funzione arriva (type_id)
+        //
+        )
+
 
         // document.addEventListener('click', function(id){
         //     const editForm = document.getElementById('edit-form-' + id);
@@ -179,18 +209,32 @@
 
             const editForm = document.getElementById('edit-form-'+id);
 
+
             for(let i = 0; i < editForms.length; i++) {
+
                 editForms[i].classList.add('d-none');
-                console.log(editForms[i])
+
             }
 
-            // const inputTest = document.getElementById
 
-            // editForm.id = 'edit-form-' + id
             editForm.classList.remove('d-none');
 
         }
 
+
+        function sendEditForm(id) {
+
+                const form = document.getElementById('form-' + id);
+                form.submit();
+
+        }
+
+        function sendCreate() {
+
+                const form = document.getElementById('create-form');
+                form.submit();
+
+        }
 
     </script>
 
