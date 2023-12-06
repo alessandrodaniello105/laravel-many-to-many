@@ -88,7 +88,7 @@ class TypeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Type $type)
+    public function update(TypeRequest $request, Type $type)
     {
         $form_data = $request->all();
         $form_data['slug'] = Helper::generateSlug($form_data['name'], Type::class);
