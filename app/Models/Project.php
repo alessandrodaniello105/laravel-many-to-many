@@ -12,7 +12,7 @@ class Project extends Model
     use HasFactory;
 
     public function technology() {
-        return $this->belongsTo(Technology::class);
+        return $this->belongsToMany(Technology::class);
     }
 
     public function type() {

@@ -10,7 +10,7 @@ class Technology extends Model
     use HasFactory;
 
     public function technologyProjects() {
-        return $this->hasMany(Project::class);
+        return $this->belongsToMany(Project::class);
     }
 
     protected $fillable = ['name', 'slug', 'link'];
