@@ -108,16 +108,19 @@ aside {
 
 .btn-colored {
     position: relative;
-    .edit-btn-ctm {
+    .btn-ctm {
         position: absolute;
         top: 50%;
         transform: translateY(-50%);
         right: 0;
         opacity: 0;
         transition: .2s all;
+        i {
+            font-size: 13px;
+        }
     }
     &:hover {
-        .edit-btn-ctm {
+        .btn-ctm {
             opacity: 1;
             transition: .2s all;
 
