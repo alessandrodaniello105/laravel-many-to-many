@@ -22,19 +22,30 @@
                         <div class="img-box">
 
                             {{-- IMAGE --}}
-                            <img onerror="this.src = '/img/placeholder.webp'" src="{{asset('storage/' . $project?->image)}}" class="card-img-top" alt="{{ $project?->image_original_name ?? 'placeholder image' }}">
+                            <img
+                              onerror="this.src = '/img/placeholder.webp'"
+                              src="{{asset('storage/' . $project?->image)}}"
+                              class="card-img-top"
+                              alt="{{ $project?->image_original_name ?? 'placeholder image' }}">
 
                             <span class="badge bg-secondary">{{$project->type?->name ?? 'Nessun Tipo'}}</span></h6>
 
                         </div>
 
                         <div class="card-body">
-                          <h5 class="card-title">{{ $project->title }}</h5>
-                          <p class="card-text">{{ $project->description }}</p>
+                            <div class="title-div">
+                                <h5 class="card-title">{{ $project->title }}</h5>
+                            </div>
+
+                            <hr>
+
+                            <div class="description-div">
+                                <p class="card-text">{{ $project->description }}</p>
+                            </div>
+
                         </div>
 
-                        <div class="card-body d-flex justify-content-end">
-
+                        <div class="card-footer d-flex justify-content-end">
                             <div class="actions align-self-end">
 
                                 {{-- SHOW BUTTON --}}
