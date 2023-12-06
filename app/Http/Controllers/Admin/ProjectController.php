@@ -73,6 +73,11 @@ class ProjectController extends Controller
 
         $new_project = Project::create($form_data);
 
+        // ora che abbiamo una relazione many to many dobbiamo salvare le nuove relazioni della tabella pivot
+        // se nel form(request) trovo 'technologies' vuol dire che ho selezionato una o più tecnologie e le lego tramite la tabella pivot richiamando la relazione di project con 'technologies()' e utilizzando il metodo 'attach'
+        if(array_key_exists('technologies', $form_data)) {
+            $new_project->technologies()->attach($form_data['technologies']);
+        }
 
 
         return redirect()->route('admin.projects.show', $new_project)->with('success', 'Nuovo progetto inserito con successo!');
@@ -140,6 +145,15 @@ class ProjectController extends Controller
         }
 
         $project->update($form_data);
+
+        // controllo se è sono state modificate tecnologie, se sì uso sync per "sincronizzarle"
+        // se non mi arriva 'technologies' significa che non sto mandando un valore a questo campo, cioè avrò un progetto senza tecnologie, quindi le "detach"-iamo tutte
+
+        if(array_key_exists('technologies', $form_data)) {
+            $project->technologies()->sync($form_data['technologies']);
+        } else {
+            $project->technologies()->detach();
+        }
 
         return redirect()->route('admin.projects.show', $project)->with('success', 'Hai modificato correttamente il progetto');
     }

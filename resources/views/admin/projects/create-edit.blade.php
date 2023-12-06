@@ -100,24 +100,27 @@
 
         {{-- TECNOLOGIE --}}
         <div class="mb-3">
-            <select
-              class="form-select "
-              name="technology_id"
-              id="technology_id">
 
+            <div class="btn-group" role="group"
+            >
 
-                    <option value="0">Scegli la tecnologia principale</option>
+            @foreach ($technologies as $technology)
+                <input
+                type="checkbox"
+                class="btn-check"
+                id="technology_{{$technology->id}}"
+                name="technologies[]"
+                autocomplete="off"
+                value="{{$technology->id}}"
 
-                @foreach ($technologies as $tech)
+                @if ( ($errors->any() && in_array($technology->id, old('technologies', [])) )
+                || (!$errors->any() && $project?->technologies->contains($technology))) checked @endif
+                >
 
-                    <option value="{{$tech->id}}" {{ old('technology_id', $project?->technology_id) == $tech->id? 'selected' : '' }} >{{ $tech->name }}</option>
+                <label class="btn btn-outline-primary" for="technology_{{$technology->id}}">{{$technology->name}}</label>
+            @endforeach
 
-                    {{-- <option @if ($project?->technologies === $tech->name) selected @endif value="{{$tech->name}}">
-                        {{$tech->name}}
-                    </option> --}}
-
-                @endforeach
-            </select>
+            </div>
 
             {{-- @error('technologies')
                 <ul class="text-danger mt-1">
