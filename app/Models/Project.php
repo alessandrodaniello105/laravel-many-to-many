@@ -11,7 +11,7 @@ class Project extends Model
 {
     use HasFactory;
 
-    public function technology() {
+    public function technologies() {
         return $this->belongsToMany(Technology::class);
     }
 
