@@ -35,8 +35,15 @@
     </div>
 
     <p>{{ $project->description }}</p>
-    <p>{{$project->technology->name}}</p>
-    <p>{{$project->type->name}}</p>
+
+    <ul>
+    @foreach ($project->technologies as $technology)
+        <li>{{$technology->name}}</li>
+    @endforeach
+    </ul>
+
+
+    <p>{{$project?->type?->name}}</p>
 
 @endsection
 

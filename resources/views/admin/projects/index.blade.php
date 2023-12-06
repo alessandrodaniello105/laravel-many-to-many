@@ -43,6 +43,13 @@
                                 <p class="card-text">{{ $project->description }}</p>
                             </div>
 
+                            <div class="technologies-div d-flex">
+                                @foreach ($project->technologies as $technology)
+
+                                <a href="{{ route('admin.projects-technology', $technology) }}"><span class="badge bg-primary">{{ $technology->name }}</span></a>
+                                @endforeach
+                            </div>
+
                         </div>
 
                         <div class="card-footer d-flex justify-content-end">
