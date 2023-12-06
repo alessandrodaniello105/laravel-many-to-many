@@ -74,9 +74,15 @@
                         {{$technology->name}}
                     </a>
 
-                    <a href="{{route('admin.technologies.edit', $technology)}}" class="btn btn-warning edit-btn-ctm">
-                        <i class="fa-solid fa-pencil"></i>
-                    </a>
+                    <div class="actions-buttons btn-ctm">
+                        {{-- EDIT BUTTON --}}
+                        <a href="{{route('admin.technologies.edit', $technology)}}" class="btn btn-warning">
+                            <i class="fa-solid fa-pencil"></i>
+                        </a>
+
+                        {{-- DELETE BUTTON --}}
+                        @include('admin.partials.formDelete', ["route" => route('admin.technologies.destroy', $technology)])
+                    </div>
 
                 </li>
                 @endforeach
