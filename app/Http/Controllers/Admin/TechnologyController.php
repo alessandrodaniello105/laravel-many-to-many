@@ -21,6 +21,10 @@ class TechnologyController extends Controller
         return view("admin.technologies.index", compact("technologies"));
     }
 
+    public function projectsTechnology(Technology $technology) {
+        return view('admin.technologies.projects-technology', compact('technology'));
+    }
+
     /**
      * Show the form for creating a new resource.
      *
