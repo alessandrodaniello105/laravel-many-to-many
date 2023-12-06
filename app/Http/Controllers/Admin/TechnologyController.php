@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Technology;
 use App\Functions\Helper;
+use App\Http\Requests\TechnologyRequest;
 
 class TechnologyController extends Controller
 {
@@ -36,7 +37,7 @@ class TechnologyController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(TechnologyRequest $request)
     {
         $form_data = $request->all();
         $form_data['slug'] = Helper::generateSlug($form_data['name'], Technology::class);
@@ -63,9 +64,13 @@ class TechnologyController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Technology $technology)
     {
-        //
+        $title = "Modifica il progetto ''$technology->title''";
+        $route = route('admin.technologies.update', $technology);
+        $method = "PUT";
+
+        return view('admin.technologies.edit', compact('technology', 'title', 'route', 'method'));
     }
 
     /**
@@ -75,9 +80,22 @@ class TechnologyController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(TechnologyRequest $request, Technology $technology)
     {
-        //
+        $form_data = $request->all();
+
+        // se il nome che mi arriva dal form(request) è diverso dal nome della tecnologia che sto modificato, vuol dire che è stato cambiato quindi genero un nuovo slug,
+        // altrimenti assegno lo stesso slug poiché significa che non è stato cambiato il nome della tecnologia
+        if ($form_data['name'] !== $technology->title) {
+            $form_data['slug'] = Helper::generateSlug($form_data['name'], Technology::class);
+        } else {
+            $form_data['slug'] = $technology->slug;
+        }
+
+        $technology->update($form_data);
+
+        return redirect()->route('admin.technologies.index')->with('success','Hai apportato correttamente le modifiche.');
+
     }
 
     /**
